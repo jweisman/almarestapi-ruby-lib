@@ -2,11 +2,17 @@
 
 This library provides wrapper functions to call the Alma REST API.
 
+## Installation
+`gem install alma_rest_api`
+or in Gemfile
+`gem 'alma_rest_api'`
+
 ## Configuration
 alma_rest_api_init.rb in `config/initializers`
 ```
 AlmaRestApi.configure do |config|
   config.api_key = "l7xx..."
+  config.api_path = "https://api-eu.hosted.exlibrisgroup.com/almaws/v1"
 end
 ```
 
