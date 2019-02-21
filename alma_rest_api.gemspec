@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'alma_rest_api'
-  s.version     = '0.0.8'
+  s.version     = '0.0.9'
   s.date        = '2019-02-17'
   s.summary     = "Utility client for calling Alma REST APIs"
   s.add_runtime_dependency "rest-client", ['~> 2.0', '>= 2.0.0']
