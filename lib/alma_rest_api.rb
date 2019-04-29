@@ -110,8 +110,8 @@ class Configuration
   attr_accessor :api_path
 
   def initialize
-    @api_key = ENV['ALMA_API_KEY']
-    @api_path = ENV['ALMA_API_PATH'] || "https://api-na.hosted.exlibrisgroup.com/almaws/v1"
+    @api_key = ENV['ALMA_APIKEY']
+    @api_path = ENV['ALMA_APIPATH'] || "https://api-na.hosted.exlibrisgroup.com/almaws/v1"
   end
 end
 
