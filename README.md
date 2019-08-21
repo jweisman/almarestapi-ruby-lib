@@ -13,12 +13,14 @@ alma_rest_api_init.rb in `config/initializers`
 AlmaRestApi.configure do |config|
   config.api_key = "l7xx..."
   config.api_path = "https://api-eu.hosted.exlibrisgroup.com/almaws/v1"
+  config.api_format = :"application/xml"
 end
 ```
 
 OR via environment variables:
 * `ALMA_API_KEY`  
 * `ALMA_API_PATH` (default https://api-na.hosted.exlibrisgroup.com/almaws/v1)
+* `ALMA_APIFORMAT` (default `:json`)
 
 ## Usage
 
