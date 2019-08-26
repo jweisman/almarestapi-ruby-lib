@@ -19,9 +19,13 @@ module AlmaRestApi
       begin
         response = 
          RestClient.get uri(uri),
-            accept: :json, 
+            accept: configuration.format,
             authorization: 'apikey ' + configuration.api_key
-        return JSON.parse(response.body)
+        if configuration.format == :"application/xml"
+          return Nokogiri::XML.parse(response.body)
+        else
+          return JSON.parse(response.body)
+        end
       rescue => e
         raise AlmaApiError, parse_error(e.response)
       end 
@@ -32,11 +36,15 @@ module AlmaRestApi
       begin
         response =
          RestClient.put uri(uri),
-          data.to_json,
-          accept: :json, 
+          configuration.format == :"application/xml" ? data.to_xml : data.to_json,
+          accept: configuration.format,
           authorization: 'apikey ' + configuration.api_key,
-          content_type: :json
-        return JSON.parse(response.body)   
+          content_type: configuration.format
+        if configuration.format == :"application/xml"
+          return Nokogiri::XML.parse(response.body)
+        else
+          return JSON.parse(response.body)
+        end
       rescue => e
         raise AlmaApiError, parse_error(e.response)
       end 
@@ -47,11 +55,15 @@ module AlmaRestApi
       begin
         response =
          RestClient.post uri(uri),
-          data.to_json,
-          accept: :json, 
+          configuration.format == :"application/xml" ? data.to_xml : data.to_json,
+          accept: configuration.format,
           authorization: 'apikey ' + configuration.api_key,
-          content_type: :json
-        return JSON.parse(response.body)  
+          content_type: configuration.format
+        if configuration.format == :"application/xml"
+          return Nokogiri::XML.parse(response.body)
+        else
+          return JSON.parse(response.body)
+        end
       rescue => e
         raise AlmaApiError, parse_error(e.response)
       end         
@@ -77,6 +89,7 @@ module AlmaRestApi
 
     def check_config
       raise NoApiKeyError if configuration.api_key.nil? || configuration.api_key.empty?
+      raise InvalidApiFormatError unless [:json, :"application/xml"].include? configuration.format
     end
 
     def parse_error(err)
@@ -108,15 +121,23 @@ end
 class Configuration
   attr_accessor :api_key
   attr_accessor :api_path
+  attr_accessor :format
 
   def initialize
     @api_key = ENV['ALMA_APIKEY']
     @api_path = ENV['ALMA_APIPATH'] || "https://api-na.hosted.exlibrisgroup.com/almaws/v1"
+    @format = ENV['ALMA_FORMAT'] || :json
   end
 end
 
 class NoApiKeyError < StandardError
   def initialize(msg="No API key defined")
+    super
+  end
+end
+
+class InvalidApiFormatError < StandardError
+  def initialize(msg="API format must be :json or :\"application/xml\"")
     super
   end
 end

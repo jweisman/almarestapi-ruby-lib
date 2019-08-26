@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'alma_rest_api'
-  s.version     = '1.0.0'
-  s.date        = '2019-02-17'
+  s.version     = '1.0.1'
+  s.date        = '2019-08-26'
   s.summary     = "Utility client for calling Alma REST APIs"
   s.add_runtime_dependency "rest-client", ['~> 2.0', '>= 2.0.0']
   s.add_runtime_dependency "nokogiri", ['~> 1.8', '>= 1.8.0']
