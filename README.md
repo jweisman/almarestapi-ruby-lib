@@ -59,7 +59,7 @@ require 'alma_rest_api'
 ```
 
 ### XML Usage
-XML is the preferable format for APIs which work with MARCXML. The library supports working with XML as follows:
+XML is the preferable format for APIs which work with MARCXML. The library supports working with XML using the [Nokogiri library](https://nokogiri.org). For example, a BIB record can be retrieved and updated as follows:
 ```
 AlmaRestApi.configuration.format = :'application/xml'
 bib = AlmaRestApi.get '/bibs/991395470000541'
